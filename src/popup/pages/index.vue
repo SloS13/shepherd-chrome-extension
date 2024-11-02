@@ -15,78 +15,75 @@ const store = useAppStore()
 onMounted(() => {
   //load token from storage
   fetchTokenFromStorage()
-  
 })
 
-
 const fetchTokenFromStorage = () => {
-  chrome.storage.local.get("shepToken", function(data) {
-              // Do something with data.key
-              shepherdToken.value = data.shepToken
-              console.log(data.shepToken)
-            });
-}
-
-//make a function to add one to mynumber
-const addOne = () => {
-  console.log('add one')
-  myNumber.value++
-}
-
-//function to test console.log
-const consolelog = () => {
-  store.increment
-  alert('button clicked')
-  console.log('Test')
+  chrome.storage.local.get('shepToken', function (data) {
+    // Do something with data.key
+    shepherdToken.value = data.shepToken
+    console.log(data.shepToken)
+  })
 }
 
 const copyToClipboard = () => {
   console.log('copy to clipboard')
-  var copyText = document.getElementById("tokenElement");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-  document.execCommand("copy");
+  var copyText = document.getElementById('tokenElement')
+  copyText.select()
+  copyText.setSelectionRange(0, 99999) /*For mobile devices*/
+  document.execCommand('copy')
 }
-
 
 const name = computed(() => store.name)
 const count = computed(() => store.count)
 </script>
 
 <template>
-  <div class="text-center m-4 flex flex-col gap-y-2">
-    <h1 class="text-3xl font-bold underline pb-6">
+  <div>
+    <h1 class="text-2xl font-bold pb-2 text-center">
       Shepherd Chrome Extension
     </h1>
-
-   
-
-    <button
-        class="btn btn-primary text-xs h-12 w-1/4"
+  </div>
+  <div class="flex flex-row w-full mb-4 mt-2">
+    <div class="w-full text-left uppercase pt-1 mr-2 align-top text-center">
+      <b>How to use:</b>
+      Open a tab where you are logged into shepherd. After clicking any link in
+      shepherd, click the button to fetch your token. You can paste it into
+      Companion to use the API.
+    </div>
+  </div>
+  <div class="flex flex-row w-full mb-4 mt-2">
+    <div class="w-1/2 uppercase pt-1 mr-2 align-top text-center">
+      <button
+        class="btn btn-primary text-xs h-12 w-1/2"
         @click="fetchTokenFromStorage"
       >
         Fetch Token
       </button>
-
+    </div>
+    <div class="w-1/2 uppercase pt-1 mr-2 align-top text-center">
       <button
-        class="btn btn-primary text-xs h-12 w-1/4"
+        class="btn btn-primary text-xs h-12 w-1/2"
+        :disabled="!shepherdToken"
         @click="copyToClipboard"
       >
         Copy to Clipboard
       </button>
-
-   <textarea id="tokenElement" v-model="shepherdToken" class="w-full h-24 text-xs"></textarea>
-
-    <div class="flex gap-x-2 justify-center">
-     
     </div>
+  </div>
+
+  <div class="text-center m-4 flex flex-col gap-y-2">
+    <textarea
+      id="tokenElement"
+      v-model="shepherdToken"
+      class="w-full h-24 text-xs"
+    ></textarea>
+
+    <div class="flex gap-x-2 justify-center"></div>
 
     <RouterLink
       class="underline"
       to="/common/about"
-    >
-      
-    </RouterLink>
+    ></RouterLink>
   </div>
 </template>
 

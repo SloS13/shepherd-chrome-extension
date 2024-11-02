@@ -30,7 +30,7 @@ export default {
     {
       all_frames: true,
       js: ['src/content-script/index.ts'],
-      matches: ['*://*/*'],
+      matches: ["*://*.shepherd.vet/*"],
       run_at: 'document_end',
     },
   ],
@@ -47,11 +47,11 @@ export default {
   permissions: ['storage', 'tabs', 'background','webRequest'],
   web_accessible_resources: [
     {
-      matches: ['*://*/*'],
+      matches: ["*://*.shepherd.vet/*"],
       resources: ['src/content-script/index.ts'],
     },
     {
-      matches: ['*://*/*'],
+      matches: ["*://*.shepherd.vet/*"],
       resources: ['src/content-script/iframe/index.html'],
     },
   ],
