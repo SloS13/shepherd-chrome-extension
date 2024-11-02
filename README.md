@@ -1,3 +1,1 @@
-"# pdfme-demo" 
-"# runningteams" 
-"# 5speedrunning" 
+Allows you to extract your shepherd bearer token easily

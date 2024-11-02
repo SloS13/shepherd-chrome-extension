@@ -1,1 +1,0 @@
-Allows you to extract your shepherd bearer token easily
