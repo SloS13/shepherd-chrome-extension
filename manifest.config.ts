@@ -29,7 +29,7 @@ export default {
   content_scripts: [
     {
       all_frames: true,
-      js: ['src/content-script/index.ts'],
+      js: ['src/content-script/index.ts','src/jquery-3.7.1.min.js','src/content-script/test.js',],
       matches: ["*://*.shepherd.vet/*"],
       run_at: 'document_end',
     },
@@ -44,7 +44,7 @@ export default {
   host_permissions: [
     "*://*.shepherd.vet/*"
   ],
-  permissions: ['storage', 'tabs', 'background','webRequest'],
+  permissions: ['storage', 'tabs', 'background', 'webRequest','activeTab','tabs' ],
   web_accessible_resources: [
     {
       matches: ["*://*.shepherd.vet/*"],

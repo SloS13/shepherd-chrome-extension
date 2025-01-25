@@ -33,7 +33,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+, "src/background/index.bak"  ]
   // "references": [
   //   {
   //     "path": "./tsconfig.node.json"

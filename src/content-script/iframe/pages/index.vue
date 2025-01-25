@@ -3,7 +3,10 @@ function handleClick() {
   console.log(chrome.runtime)
   alert('chrome.runtime is available in content script')
 }
+
 </script>
+
+
 
 <template>
   <div>
