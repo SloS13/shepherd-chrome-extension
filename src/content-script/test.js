@@ -1,5 +1,5 @@
 import './index.scss'
-
+/*
 //fine a div with class "nav--primary" and use it as a variable.  Get only the first one
 var navPrimary = document.querySelector('.nav--primary');
 navPrimary = navPrimary[0];
@@ -24,3 +24,4 @@ alert('potateoes');
 
 
 
+*/

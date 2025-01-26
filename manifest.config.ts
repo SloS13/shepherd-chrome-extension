@@ -31,7 +31,9 @@ export default {
       all_frames: true,
       js: ['src/content-script/index.ts','src/jquery-3.7.1.min.js','src/content-script/test.js',],
       matches: ["*://*.shepherd.vet/*"],
+      //run every time the page is loaded or when url changes
       run_at: 'document_end',
+      
     },
   ],
   // Full options page

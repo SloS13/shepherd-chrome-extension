@@ -1,84 +1,62 @@
 import './index.scss'
 
-var className = 'nav--primary'
 
 let ajaxCompleted = false
 
-const observer = new MutationObserver(() => {
-  // Check if all AJAX requests are completed
-  if (checkAjaxComplete()) {
-    ajaxCompleted = true
-    observer.disconnect()
+function addLink(){
+  var clinicName = document.querySelector('.nav--primary__clinic-name')
 
-    // Execute your code here after all AJAX requests are done
-    console.log('All AJAX requests have completed!')
+  if (document.querySelector('#shep-tools')) {
+    return;
+  }
 
-    //wait for 1 second
-    setTimeout(() => {
-      var nav = document.querySelector(`.${className}`)
-    if (nav) {
-      let firstNav = nav.children[1]; //this will be Dashboard
+  if (clinicName) {
+    //get users email if available
+    var emailElement = document.querySelector('.user-email');
+    var email = emailElement?.innerHTML;
+    console.log('email:', btoa(email));
+    var emailHref = 'https://google.com?email='+btoa(email);
 
-      //we want to clone this item and place it just after the first item
-      let clone = firstNav.cloneNode(true);
 
-      //set clone aria-label to 'Home'
-      clone.setAttribute('aria-label', 'Tools');
+    var a = document.createElement('a');
+    a.href = emailHref;
+    a.target = '_blank';
+    a.innerHTML = 'Tools';
 
-      clone.querySelector('.nav__icon').classList.remove('nav__icon--dashboard');
-      clone.querySelector('.nav__icon').classList.add('nav__icon--enter-beta');
+    var newElement = document.createElement('div');
+    newElement.classList.add('nav--primary');
+    newElement.id = 'shep-tools';
+    newElement.style.padding = '6px';
+    newElement.style.textAlign = 'center';
+    newElement.append(a);
 
-      clone.classList.remove('active');  
-
-      var emailElement = document.querySelector('.user-email');
-      var email = emailElement?.innerHTML;
-      console.log('email:', btoa(email));
-
-      //find element within clone with class "nav__icon--dashboard" and replace with "nav__icon--enter-beta"
-      //base 64 encode email
-      // var encodedEmail = btoa(email);
-
-      let emailHref = 'https://google.com?email='+btoa(email);
-
-      clone.querySelector('.nav__text').innerHTML = '<a href="'+emailHref+'" target="_blank">Tools</a>';
-
-      // alert(email);
-
-      //set id to bayside-tools
-      // clone.setAttribute('id', 'bayside-tools');
-
-      //add a listener for clicks on this
-      clone.addEventListener('click', function() {
-        //redirect to tools page
-        window.location.href = 'https://baysidevetclinic.com/portal';
-      })
-
-      
-
-      // clone.querySelector('.nav__icon--dashboard').classList.remove('nav__icon--dashboard');
-      // clone.querySelector('.nav__icon--dashboard').classList.add('nav__icon--enter-beta');
-
-      //find an element with class "nav__text" and set the innerHTML to 'Home'
-      // clone.querySelector('.nav__notif').hide();
-      // clone.querySelector('.nav__notif-badge').delete();
-      
-      nav.insertBefore(clone, firstNav.nextSibling);
-
-      
-      console.log('nav found');
-    } else {
-      console.log('nav not found')
-    }  
-    }, 1000)
+    clinicName.after(newElement);
 
     
-  }
-})
+    console.log('nav found');
+  } else {
+    console.log('nav not found')
+  }  
+};
 
-observer.observe(document.body, { childList: true, subtree: true })
 
-function checkAjaxComplete() {
-  // Implement your own logic to check if all AJAX requests are finished
-  // For example, you can check for a specific element that is added to the DOM after the last AJAX request
-  return document.querySelector('#ajax-loader') === null
-}
+
+let lastUrl = ""; 
+new MutationObserver(() => {
+  const url = location.href;
+  //do a 100ms timeout
+  setTimeout(() => {
+    if (url !== lastUrl) {
+      lastUrl = url;
+      addLink();
+    }
+  }, 100);
+
+
+
+  
+}).observe(document, {subtree: true, childList: true});
+
+// function onUrlChange() {
+//   console.log('URL changed!', location.href);
+// }
